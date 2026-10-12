@@ -1,0 +1,340 @@
+@import "@noarka/ui/styles/tokens.css";
+@import "@noarka/ui/styles/base.css";
+
+/* Copied from the Invoisor app (Applications/invoisor/app/globals.css) so
+   the docs site matches its style. Two Invoisor-only pieces are left out:
+   `@import "shadcn/tailwind.css"` and `@plugin "@tailwindcss/typography"`
+   (those packages aren't installed here and nothing in docs uses them). */
+
+/* The docs app lives under gitignored Applications/, so register it
+   explicitly because Tailwind v4's automatic content detection skips it. */
+@source "./**/*.{ts,tsx}";
+
+/* Dark utilities match any `.dark` ancestor. The theme toggle adds or removes
+   that class on <html>, so they stop applying in light mode. */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-dead: var(--dead);
+  --color-dead-foreground: var(--dead-foreground);
+  --color-white: #fff;
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Syntax highlighting (sugar-high tokens) for code blocks. Token colors arrive
+   as inline styles referencing these variables; layout and line numbers live
+   here. Two palettes: VS Code Light+ by default, Dark+ when `.dark` is on.
+   The Dark+ palette is unreadable on a light background, so the light values
+   must not be dropped. */
+.codeblock,
+.codeblock-gutter {
+  font-family: ui-monospace, "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.codeblock {
+  --sh-class: #267f99;
+  --sh-identifier: #001080;
+  --sh-sign: #5a5a5a;
+  --sh-property: #0451a5;
+  --sh-entity: #795e26;
+  --sh-jsxliterals: #1f1f1f;
+  --sh-string: #a31515;
+  --sh-keyword: #0000ff;
+  --sh-comment: #008000;
+}
+
+.dark .codeblock {
+  --sh-class: #4ec9b0;
+  --sh-identifier: #9cdcfe;
+  --sh-sign: #858585;
+  --sh-property: #9cdcfe;
+  --sh-entity: #dcdcaa;
+  --sh-jsxliterals: #d4d4d4;
+  --sh-string: #ce9178;
+  --sh-keyword: #569cd6;
+  --sh-comment: #6a9955;
+}
+
+.codeblock .sh__line {
+  display: block;
+  white-space: pre;
+}
+
+.codeblock .sh__line:empty::after {
+  content: " ";
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+:root {
+  --font-serif: var(--font-bricolage), ui-serif, Georgia, serif;
+  --solar-stroke-width: 2;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.148 0.004 228.8);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.148 0.004 228.8);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.148 0.004 228.8);
+  --primary: #DA7756;
+  --primary-foreground: oklch(0.97 0.014 254.604);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.963 0.002 197.1);
+  --muted-foreground: oklch(0.56 0.021 213.5);
+  --accent: oklch(0.963 0.002 197.1);
+  --accent-foreground: oklch(0.218 0.008 223.9);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.92 0.06 27.325);
+  --success: hsl(142 54% 54%);
+  --success-foreground: hsl(142 80% 95%);
+  --warning: hsl(36 35% 54%);
+  --warning-foreground: hsl(36 70% 95%);
+  --dead: hsl(0 0% 42%);
+  --dead-foreground: hsl(0 0% 92%);
+  --border: oklch(0.925 0.005 214.3);
+  --input: oklch(94.007% 0.00011 271.152);
+  --ring: oklch(0.723 0.014 214.4);
+  --chart-1: oklch(0.872 0.007 219.6);
+  --chart-2: oklch(0.56 0.021 213.5);
+  --chart-3: oklch(0.45 0.017 213.2);
+  --chart-4: oklch(0.378 0.015 216);
+  --chart-5: oklch(0.275 0.011 216.9);
+  --radius: 0.625rem;
+  --sidebar: #f1f3f4;
+  --sidebar-foreground: oklch(0.148 0.004 228.8);
+  --sidebar-primary: oklch(0.55 0.22 263);
+  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+  --sidebar-accent: #e2e6ea;
+  --sidebar-accent-foreground: oklch(0.218 0.008 223.9);
+  --sidebar-border: oklch(0.925 0.005 214.3);
+  --sidebar-ring: oklch(0.723 0.014 214.4);
+  --surface: oklch(100% 0.00011 271.152);
+}
+
+.dark {
+  --background: oklch(16.9% 0.002 286.2);
+  --foreground: oklch(96% 0.011 286.2);
+  --card: oklch(20.1% 0.002 286.2);
+  --card-foreground: oklch(0.987 0.002 197.1);
+  --popover: oklch(20.1% 0.002 286.2);
+  --popover-foreground: oklch(0.987 0.002 197.1);
+  --primary: oklch(67.4% 0.132 39.1);
+  --primary-foreground: oklch(0.97 0.014 254.604);
+  --secondary: oklch(23.1% 0.002 286.3);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(23.1% 0.002 286.3);
+  --muted-foreground: oklch(70.811% 0.01569 264.51);
+  --accent: oklch(25.3% 0.004 286.1);
+  --accent-foreground: oklch(0.987 0.002 197.1);
+  --destructive: oklch(58.6% 0.123 21.5);
+  --success: oklch(74.6% 0.161 152.4);
+  --warning: oklch(67.9% 0.077 76.8);
+  --border: oklch(100% 0.00011 271.152 / 0.034);
+  --input: oklch(23.1% 0.002 286.3);
+  --ring: oklch(100% 0.00011 271.152 / 0.034);
+  --chart-1: oklch(0.872 0.007 219.6);
+  --chart-2: oklch(0.56 0.021 213.5);
+  --chart-3: oklch(0.45 0.017 213.2);
+  --chart-4: oklch(0.378 0.015 216);
+  --chart-5: oklch(0.275 0.011 216.9);
+  --sidebar: oklch(18.7% 0.002 286.2);
+  --sidebar-foreground: oklch(0.987 0.002 197.1);
+  --sidebar-primary: oklch(54.76% 0.22148 263.278 / 0.192);
+  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+  --sidebar-accent: oklch(23.1% 0.002 286.3);
+  --sidebar-accent-foreground: oklch(0.987 0.002 197.1);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(53.492% 0.02466 268.236);
+  --surface: oklch(22.3% 0.002 286.2);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
+  }
+}
+
+/* App-wide custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--muted-foreground) 35%, transparent) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--muted-foreground) 35%, transparent);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklch, var(--muted-foreground) 55%, transparent);
+}
+
+/* Sidebar-only scrollbar, themed with sidebar variables. */
+[data-sidebar="content"] {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--sidebar-foreground) 35%, transparent) color-mix(in oklch, var(--sidebar) 1%, var(--sidebar-border) 0%);
+}
+
+[data-sidebar="content"]::-webkit-scrollbar {
+  width: 10px;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 999px;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: 2px solid color-mix(in oklch, var(--sidebar) 92%, var(--sidebar-border) 8%);
+  border-radius: 999px;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+/* Docs sidebar scrollbar: hidden until hovered. */
+.docs-sidebar-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.docs-sidebar-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.docs-sidebar-scroll:hover {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--muted-foreground) 35%, transparent) transparent;
+}
+
+.docs-sidebar-scroll:hover::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+  height: 8px;
+}
+
+.docs-sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background: color-mix(in oklch, var(--muted-foreground) 35%, transparent);
+  border-radius: 999px;
+}
+
+/* Header breadcrumb muted tone */
+.header-breadcrumb,
+.header-breadcrumb a,
+.header-breadcrumb span {
+  color: var(--muted-foreground) !important;
+}
+
+/* ── User preferences ─────────────────────────────────────────────── */
+/* "Use pointer cursor" preference */
+.pref-pointer-cursor button,
+.pref-pointer-cursor a,
+.pref-pointer-cursor [role="button"],
+.pref-pointer-cursor select,
+.pref-pointer-cursor input[type="checkbox"],
+.pref-pointer-cursor input[type="radio"],
+.pref-pointer-cursor label {
+  cursor: pointer !important;
+}
+
+/* "Underline links" preference */
+.pref-underline-links a {
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+}
+
+/* Frameless Electron shell: reserve room for the custom title bar.
+   Only active when the titlebar component adds `electron-frameless` to
+   <html> (desktop app only). Scrolling stays on the window; the opaque
+   title bar covers the top of the scrollbar track, and the track itself
+   is transparent so nothing visually reaches the bar. */
+html.electron-frameless body {
+  padding-top: 40px;
+}
+
+html.electron-frameless [data-slot="sidebar-container"] {
+  top: 40px;
+  height: calc(100svh - 40px);
+}
+
+html.electron-frameless [data-slot="sheet-content"] {
+  top: 40px;
+  height: calc(100svh - 40px);
+}
+
+html.electron-frameless {
+  scrollbar-width: none;
+}
+
+html.electron-frameless ::-webkit-scrollbar {
+  display: none;
+}

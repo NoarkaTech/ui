@@ -1,0 +1,66 @@
+{
+  "name": "@noarka/ui",
+  "version": "0.1.1",
+  "description": "Noarka UI — an open-source React component library built on Base UI primitives, styled with Tailwind CSS.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles/tokens.css": "./src/styles/tokens.css",
+    "./styles/base.css": "./src/styles/base.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "base-ui",
+    "tailwindcss",
+    "design-system",
+    "accessible"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "@base-ui/react": "~1.3.0",
+    "@solar-icons/react": "^2.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@solar-icons/react": "^2.1.0",
+    "@types/node": "^20.19.43",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "cmdk": "^1.1.1",
+    "tw-animate-css": "^1.4.0"
+  }
+}

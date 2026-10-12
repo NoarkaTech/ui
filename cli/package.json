@@ -1,0 +1,37 @@
+{
+  "name": "@noarka/cli",
+  "version": "0.1.1",
+  "description": "Scaffold Noarka UI primitives into your project, shadcn-style.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "noarka": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "noarka",
+    "ui",
+    "cli",
+    "scaffold",
+    "components"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup src/cli.ts --format esm --clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@noarka/ui": "workspace:^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "tsup": "^8.3.5",
+    "typescript": "^5"
+  }
+}

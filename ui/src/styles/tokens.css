@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* Self-register the library's own class strings so consumers don't have
+   to. (Package files are usually gitignored, which Tailwind v4's automatic
+   content detection would otherwise skip.) */
+@source "../primitives/**/*.{ts,tsx}";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-dead: var(--dead);
+  --color-dead-foreground: var(--dead-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+/* Single source of truth for Noarka theme.
+   Apps may override vars per-app, e.g.:
+   [data-theme="invoisor"] { --primary: ...; } */
+:root {
+  --background: #0f0f10;
+  --foreground: oklch(0.96 0.01 285.823);
+  --card: #161617;
+  --card-foreground: oklch(0.96 0.01 285.823);
+  --popover: #161617;
+  --popover-foreground: oklch(0.96 0.01 285.823);
+  --primary: oklch(0.65 0.23 277);
+  --primary-foreground: oklch(0.98 0.01 272);
+  --secondary: #1d1d1e;
+  --secondary-foreground: oklch(0.98 0.01 285.823);
+  --muted: #1d1d1e;
+  --muted-foreground: oklch(0.65 0.016 285.938);
+  --accent: #19191b;
+  --accent-foreground: oklch(0.98 0.01 285.823);
+  --destructive: #ba5b5b;
+  --destructive-foreground: hsl(0 80% 95%);
+  --success: hsl(142 54% 54%);
+  --success-foreground: hsl(142 80% 95%);
+  --warning: hsl(36 35% 54%);
+  --warning-foreground: hsl(36 70% 95%);
+  --dead: hsl(0 0% 23%);
+  --dead-foreground: hsl(0 0% 92%);
+  --border: oklch(100% 0.00011 271.152 / 0.034);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(32.109% 0.00004 271.152);
+  --chart-1: oklch(0.75 0.12 275);
+  --chart-2: oklch(0.65 0.18 277);
+  --chart-3: oklch(0.55 0.22 277);
+  --chart-4: oklch(0.48 0.23 277);
+  --chart-5: oklch(0.42 0.21 277);
+  --radius: 0.625rem;
+  --sidebar: #131314;
+  --sidebar-foreground: oklch(0.96 0.01 285.823);
+  --sidebar-primary: oklch(54.76% 0.22148 263.278 / 0.192);
+  --sidebar-primary-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-accent: #1d1d1e;
+  --sidebar-accent-foreground: oklch(0.92 0.01 285.823);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(53.492% 0.02466 268.236);
+  --surface: #1b1b1c;
+}

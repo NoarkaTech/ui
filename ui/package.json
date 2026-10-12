@@ -1,6 +1,6 @@
 {
   "name": "@noarka/ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Noarka UI — an open-source React component library built on Base UI primitives, styled with Tailwind CSS.",
   "license": "MIT",
   "type": "module",

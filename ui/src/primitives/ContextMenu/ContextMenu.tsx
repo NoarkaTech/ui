@@ -52,11 +52,12 @@ function ContextMenuContent({
         sideOffset={sideOffset}
         align={align}
         alignOffset={alignOffset}
+        className="isolate z-50"
       >
         <MenuPrimitive.Popup
           data-slot="context-menu-content"
           className={cn(
-            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative border bg-surface text-popover-foreground min-w-48 rounded-xl p-1 text-muted-foreground font-medium border border-border/60 duration-200 z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-closed:overflow-hidden",
+            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 border bg-surface text-popover-foreground min-w-48 rounded-xl p-1 text-muted-foreground font-medium border border-border/60 duration-200 z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto data-closed:overflow-hidden",
             className
           )}
           {...props}
@@ -196,11 +197,11 @@ function ContextMenuSubContent({
 }) {
   return (
     <MenuPrimitive.Portal>
-      <MenuPrimitive.Positioner>
+      <MenuPrimitive.Positioner className="isolate z-50">
         <MenuPrimitive.Popup
           data-slot="context-menu-sub-content"
           className={cn(
-            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative border bg-surface text-popover-foreground min-w-32 rounded-xl p-1 duration-100 z-50 origin-(--transform-origin) overflow-hidden",
+            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 border bg-surface text-popover-foreground min-w-32 rounded-xl p-1 duration-100 z-50 origin-(--transform-origin) overflow-hidden",
             className
           )}
           {...props}

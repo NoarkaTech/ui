@@ -218,6 +218,7 @@ function AutocompleteContent({
         sideOffset={sideOffset}
         align={align}
         alignOffset={alignOffset}
+        className="isolate z-50"
       >
         <ComboboxPrimitive.Popup
           data-slot="autocomplete-content"

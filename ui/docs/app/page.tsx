@@ -1,4 +1,4 @@
-"use client";
+import * as React from "react";
 import Link from "next/link";
 import { DocsHeader } from "../components/docs-header";
 
@@ -61,6 +61,9 @@ import {
   TooltipTrigger,
 } from "@noarka/ui";
 import { ArrowRightIcon } from "@solar-icons/react/dynamic/arrow-right";
+
+export const metadata = { title: { absolute: "Noarka UI" } };
+
 function Section({
   id,
   title,
@@ -88,20 +91,17 @@ export default function DocsPage() {
   return (
     <TooltipProvider>
       <div className="min-h-svh max-w-6xl mx-auto">
-        {/* Header */}
         <DocsHeader />
 
-        {/* Hero */}
         <section id="overview" className="w-full mx-auto max-w-6xl px-6 pt-20 pb-10">
           <h1 className="mt-6 max-w-2xl font-serif text-4xl font-medium text-balance">
-            The modern library for modern user interfaces.
+            A React component library built on Base UI and Tailwind CSS v4.
           </h1>
           <p className="mt-3 max-w-xl text-base text-muted-foreground">
             Accessible, composable primitives for building product interfaces. Styled with Tailwind CSS v4 and driven by design tokens.
           </p>
         </section>
 
-        {/* Links & Navigation */}
         <section id="links" className="mx-auto w-full max-w-6xl px-6 py-14">
           <p className="mb-8 max-w-xl font-medium text-foreground">
             Links &amp; Navigation.{" "}
@@ -144,7 +144,6 @@ export default function DocsPage() {
             ))}
           </div>
         </section>
-
       </div>
     </TooltipProvider>
   );

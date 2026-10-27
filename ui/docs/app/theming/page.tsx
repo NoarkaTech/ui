@@ -82,6 +82,8 @@ const FONTS_SNIPPET = `import { Geist, Geist_Mono } from "next/font/google";
 const sans = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });`;
 
+export const metadata = { title: "Theming" };
+
 export default function ThemingPage() {
   return (
     <div className="min-h-svh max-w-6xl mx-auto">

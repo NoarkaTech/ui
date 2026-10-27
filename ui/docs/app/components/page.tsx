@@ -4,6 +4,8 @@ import { DocsHeader } from "../../components/docs-header";
 import { DocsSidebar } from "../../components/docs-sidebar";
 import { COMPONENTS } from "../../components/component-registry";
 
+export const metadata = { title: "Components" };
+
 export default function ComponentsPage() {
   // The registry is in creation order; the index reads alphabetically.
   const entries = [...COMPONENTS].sort((a, b) => a.name.localeCompare(b.name));

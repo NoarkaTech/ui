@@ -6,6 +6,19 @@ import { DocsHeader } from "../../../components/docs-header";
 import { ComponentDetailView } from "../../../components/component-detail-view";
 import { COMPONENTS } from "../../../components/component-registry";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const entry = COMPONENTS.find((c) => c.slug === slug);
+  return {
+    title: entry ? entry.name : "Component",
+    description: entry?.description,
+  };
+}
+
 export function generateStaticParams() {
   return COMPONENTS.map((c) => ({ slug: c.slug }));
 }

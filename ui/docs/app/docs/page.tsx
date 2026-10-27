@@ -163,6 +163,7 @@ const THEME_SNIPPET = `[data-theme="acme"] {
   --primary: oklch(0.65 0.2 150);
 }`;
 
+
 export default function InstallationPage() {
   return (
     <div className="min-h-svh max-w-6xl mx-auto">

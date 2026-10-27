@@ -32,6 +32,8 @@ function DocSection({
   );
 }
 
+export const metadata = { title: "Introduction" };
+
 export default function IntroductionPage() {
   return (
     <div className="min-h-svh max-w-6xl mx-auto">

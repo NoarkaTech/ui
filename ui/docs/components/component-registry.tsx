@@ -43,6 +43,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
   Command,
+  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
@@ -629,17 +630,13 @@ function AlertDialogHeader({
 
 function AlertDialogFooter({
   className,
-  footer = false,
   ...props
-}: React.ComponentProps<"div"> & {
-  footer?: boolean;
-}) {
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-dialog-footer"
       className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        footer && "bg-surface -mx-4 -mb-4 rounded-b-2xl border-t p-4",
+        "bg-surface -mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-2xl border-t p-4 sm:flex-row sm:justify-end",
         className
       )}
       {...props}
@@ -783,7 +780,7 @@ const ALERT_DIALOG_USAGE = `<AlertDialog>
         Your account and all of its data will be permanently removed.
       </AlertDialogDescription>
     </AlertDialogHeader>
-    <AlertDialogFooter footer>
+    <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
       <AlertDialogAction>Delete</AlertDialogAction>
     </AlertDialogFooter>
@@ -800,7 +797,7 @@ const ALERT_DIALOG_DEFAULT_CODE = `<div className="flex justify-center">
           Archived projects are hidden from your workspace but can be restored at any time.
         </AlertDialogDescription>
       </AlertDialogHeader>
-      <AlertDialogFooter footer>
+      <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction variant="default">Archive</AlertDialogAction>
       </AlertDialogFooter>
@@ -818,7 +815,7 @@ const ALERT_DIALOG_SMALL_CODE = `<div className="flex justify-center">
           Ada will lose access immediately. You can invite them back later.
         </AlertDialogDescription>
       </AlertDialogHeader>
-      <AlertDialogFooter footer>
+      <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction>Remove</AlertDialogAction>
       </AlertDialogFooter>
@@ -911,13 +908,6 @@ const ALERT_DIALOG_API: ApiSection[] = [
   {
     component: "AlertDialogFooter",
     props: [
-      {
-        name: "footer",
-        type: "boolean",
-        default: "false",
-        description:
-          "Show the muted footer band with a top border. Without it the footer is plain with no background or border.",
-      },
       {
         name: "className",
         type: "string",
@@ -1055,28 +1045,28 @@ export { Avatar, AvatarImage, AvatarFallback };`;
 const AVATAR_IMPORT = `import { Avatar, AvatarFallback, AvatarImage } from "@noarka/ui";`;
 
 const AVATAR_USAGE = `<Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" alt="Ada Lovelace" />
+  <AvatarImage src="/placeholder-image.png" alt="Ada Lovelace" />
   <AvatarFallback>AL</AvatarFallback>
 </Avatar>`;
 
 const AVATAR_SIZES_CODE = `<div className="flex items-center justify-center gap-3">
   <Avatar className="h-8 w-8">
-    <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+    <AvatarImage src="/placeholder-image.png" alt="Avatar" />
     <AvatarFallback>NK</AvatarFallback>
   </Avatar>
   <Avatar>
-    <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+    <AvatarImage src="/placeholder-image.png" alt="Avatar" />
     <AvatarFallback>NK</AvatarFallback>
   </Avatar>
   <Avatar className="h-12 w-12">
-    <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+    <AvatarImage src="/placeholder-image.png" alt="Avatar" />
     <AvatarFallback>NK</AvatarFallback>
   </Avatar>
 </div>`;
 
 const AVATAR_SQUARE_CODE = `<div className="flex items-center justify-center gap-3">
   <Avatar className="rounded-xl">
-    <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+    <AvatarImage src="/placeholder-image.png" alt="Avatar" />
     <AvatarFallback className="rounded-xl">NK</AvatarFallback>
   </Avatar>
   <Avatar className="rounded-xl">
@@ -1086,7 +1076,7 @@ const AVATAR_SQUARE_CODE = `<div className="flex items-center justify-center gap
 
 const AVATAR_STACKED_CODE = `<div className="flex justify-center -space-x-2">
   <Avatar className="ring-2 ring-card">
-    <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+    <AvatarImage src="/placeholder-image.png" alt="Avatar" />
     <AvatarFallback>NK</AvatarFallback>
   </Avatar>
   <Avatar className="ring-2 ring-card">
@@ -2047,20 +2037,17 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
 
 function DialogFooter({
   className,
-  footer = false,
   showCloseButton = false,
   children,
   ...props
 }: React.ComponentProps<"div"> & {
-  footer?: boolean;
   showCloseButton?: boolean;
 }) {
   return (
     <div
       data-slot="dialog-footer"
       className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        footer && "-mx-4 -mb-4 rounded-b-2xl border-t bg-surface p-4",
+        "-mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-2xl border-t bg-surface p-4 sm:flex-row sm:justify-end",
         className
       )}
       {...props}
@@ -2131,7 +2118,7 @@ const DIALOG_USAGE = `<Dialog>
       <Label htmlFor="demo-name">Name</Label>
       <Input id="demo-name" placeholder="Ada Lovelace" />
     </div>
-    <DialogFooter footer>
+    <DialogFooter>
       <Button>Save</Button>
     </DialogFooter>
   </DialogContent>
@@ -2149,7 +2136,7 @@ const DIALOG_PREVIEW_CODE = `<div className="flex justify-center">
         <Label htmlFor="demo-invite">Email</Label>
         <Input id="demo-invite" placeholder="teammate@company.com" />
       </div>
-      <DialogFooter footer>
+      <DialogFooter>
         <Button>Send invite</Button>
       </DialogFooter>
     </DialogContent>
@@ -2168,7 +2155,7 @@ const DIALOG_FOOTER_CLOSE_CODE = `<div className="flex justify-center">
         <Label htmlFor="demo-invite-footer">Email</Label>
         <Input id="demo-invite-footer" placeholder="teammate@company.com" />
       </div>
-      <DialogFooter footer showCloseButton>
+      <DialogFooter showCloseButton>
         <Button>Send invite</Button>
       </DialogFooter>
     </DialogContent>
@@ -2191,7 +2178,7 @@ const DIALOG_SCROLL_CODE = `<div className="flex justify-center">
         <p>Abuse, spam, or unlawful content may result in suspension without notice.</p>
         <p>Questions? Contact support and we will respond within two business days.</p>
       </div>
-      <DialogFooter footer>
+      <DialogFooter>
         <Button>Accept</Button>
       </DialogFooter>
     </DialogContent>
@@ -2235,7 +2222,7 @@ export function NestedDialogDemo() {
           >
             Advanced settings
           </Button>
-          <DialogFooter footer>
+          <DialogFooter>
             <Button>Send invite</Button>
           </DialogFooter>
         </DialogContent>
@@ -2252,7 +2239,7 @@ export function NestedDialogDemo() {
             <DialogTitle>Advanced settings</DialogTitle>
             <DialogDescription>These apply to every invite.</DialogDescription>
           </DialogHeader>
-          <DialogFooter footer>
+          <DialogFooter>
             <DialogClose render={<Button variant="outline">Done</Button>} />
           </DialogFooter>
         </DialogContent>
@@ -2350,13 +2337,6 @@ const DIALOG_API: ApiSection[] = [
   {
     component: "DialogFooter",
     props: [
-      {
-        name: "footer",
-        type: "boolean",
-        default: "false",
-        description:
-          "Show the muted footer band with a top border. Without it the footer is plain.",
-      },
       {
         name: "showCloseButton",
         type: "boolean",
@@ -3411,7 +3391,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "flex w-fit items-center border justify-between gap-2 rounded-lg bg-surface px-3 text-[13px] whitespace-nowrap transition-colors outline-none select-none hover:bg-secondary dark:hover:brightness-110 focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "flex w-fit items-center border justify-between gap-2 rounded-lg bg-surface px-3 text-[13px] whitespace-nowrap transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 select-none hover:bg-secondary dark:hover:brightness-110 focus-visible:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       render={render}
@@ -4330,7 +4310,7 @@ function Switch({ className, render, ...props }: SwitchProps) {
     <SwitchPrimitive.Root
       data-slot="switch"
       className={cn(
-        "peer inline-flex h-5 w-7 shrink-0 cursor-default items-center rounded-full border border-transparent p-0.5 shadow-xs transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-checked:bg-primary data-unchecked:bg-muted-foreground/20",
+        "peer inline-flex h-5 w-7 shrink-0 cursor-default items-center rounded-full border border-transparent p-0.5 shadow-xs focus-visible:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 disabled:cursor-not-allowed disabled:opacity-50 data-checked:bg-primary data-unchecked:bg-muted-foreground/20",
         className
       )}
       render={render}
@@ -4511,7 +4491,7 @@ function TabsTab({ className, render, ...props }: TabsTabProps) {
     <TabsPrimitive.Tab
       data-slot="tabs-tab"
       className={cn(
-        "rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors outline-none select-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-active:bg-muted data-active:text-foreground",
+        "rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 select-none hover:text-foreground focus-visible:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 disabled:pointer-events-none disabled:opacity-50 data-active:bg-muted data-active:text-foreground",
         className
       )}
       render={render}
@@ -4749,7 +4729,7 @@ export { Toggle, toggleVariants };`;
 const TOGGLE_VARIANTS_SOURCE = `import { cva, type VariantProps } from "class-variance-authority";
 
 export const toggleVariants = cva(
-  "inline-flex items-center justify-center rounded-lg text-sm font-medium ring-offset-background transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-accent data-pressed:text-accent-foreground",
+  "inline-flex items-center justify-center rounded-lg text-sm font-medium transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 hover:bg-muted focus-visible:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-accent data-pressed:text-accent-foreground",
   {
     variants: {
       variant: {
@@ -7662,6 +7642,13 @@ import { Command as CommandPrimitive } from "cmdk";
 import { MagnifierIcon } from "@solar-icons/react/linear";
 
 import { cn } from "../../utils/cn";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "../Dialog/Dialog";
 
 export type CommandProps = React.ComponentProps<typeof CommandPrimitive>;
 
@@ -7761,7 +7748,7 @@ function CommandItem({ className, ...props }: CommandItemProps) {
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[selected=true]:**:text-accent-foreground [&_svg:not([class*='size-'])]:size-3.5 group/command-item relative flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1 text-xs leading-snug outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[selected=true]:**:text-accent-foreground hover:bg-accent hover:text-accent-foreground [&_svg:not([class*='size-'])]:size-3.5 group/command-item relative flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1 text-xs leading-snug outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
       {...props}
@@ -7798,8 +7785,54 @@ function CommandShortcut({ className, ...props }: CommandShortcutProps) {
   );
 }
 
+export type CommandDialogProps = Omit<
+  React.ComponentProps<typeof Dialog>,
+  "children"
+> & {
+  children?: React.ReactNode;
+  /**
+   * Element rendered as the open trigger, e.g. \`<Button>Search...</Button>\`.
+   * Omit it and control \`open\` / \`onOpenChange\` yourself for hotkey-driven
+   * palettes.
+   */
+  trigger?: React.ReactElement;
+  className?: string;
+};
+
+/**
+ * Floating command menu. Renders the palette in a centered modal with a
+ * backdrop; closes on Esc or outside click. Compose the palette
+ * (CommandInput, CommandList, groups) as children.
+ */
+function CommandDialog({
+  trigger,
+  className,
+  children,
+  ...props
+}: CommandDialogProps) {
+  return (
+    <Dialog {...props}>
+      {trigger != null && <DialogTrigger render={trigger} />}
+      <DialogContent
+        showCloseButton={false}
+        className={cn(
+          "gap-0 overflow-hidden p-0 sm:max-w-lg",
+          className
+        )}
+      >
+        <DialogTitle className="sr-only">Command palette</DialogTitle>
+        <DialogDescription className="sr-only">
+          Search for apps and commands.
+        </DialogDescription>
+        <Command className="w-full rounded-none">{children}</Command>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export {
   Command,
+  CommandDialog,
   CommandInput,
   CommandList,
   CommandEmpty,
@@ -7829,9 +7862,9 @@ const COMMAND_USAGE = `<Command className="border">
   </CommandList>
 </Command>`;
 
-const COMMAND_PREVIEW_CODE = `<div className="mx-auto w-full max-w-sm">
-  <Command className="border">
-    <CommandInput placeholder="Type a command..." />
+const COMMAND_PREVIEW_CODE = `<div className="flex justify-center">
+  <CommandDialog trigger={<Button variant="outline">Search actions...</Button>}>
+    <CommandInput placeholder="Search for apps and commands..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="Suggestions">
@@ -7840,11 +7873,16 @@ const COMMAND_PREVIEW_CODE = `<div className="mx-auto w-full max-w-sm">
         <CommandItem value="themes">Themes</CommandItem>
       </CommandGroup>
     </CommandList>
-  </Command>
+    <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+      <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+      <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+    </div>
+  </CommandDialog>
 </div>`;
 
-const COMMAND_GROUPS_CODE = `<div className="mx-auto w-full max-w-sm">
-  <Command className="border">
+const COMMAND_GROUPS_CODE = `<div className="flex justify-center">
+  <CommandDialog trigger={<Button variant="outline">Search settings...</Button>}>
     <CommandInput placeholder="Search settings..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>
@@ -7858,7 +7896,12 @@ const COMMAND_GROUPS_CODE = `<div className="mx-auto w-full max-w-sm">
         <CommandItem value="keys">API keys</CommandItem>
       </CommandGroup>
     </CommandList>
-  </Command>
+    <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+      <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+      <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+    </div>
+  </CommandDialog>
 </div>`;
 
 const COMMAND_SHORTCUT_IMPORT = `import {
@@ -7871,8 +7914,8 @@ const COMMAND_SHORTCUT_IMPORT = `import {
   CommandShortcut,
 } from "@noarka/ui";`;
 
-const COMMAND_SHORTCUT_CODE = `<div className="mx-auto w-full max-w-sm">
-  <Command className="border">
+const COMMAND_SHORTCUT_CODE = `<div className="flex justify-center">
+  <CommandDialog trigger={<Button variant="outline">Open commands...</Button>}>
     <CommandInput placeholder="Type a command..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>
@@ -7885,11 +7928,16 @@ const COMMAND_SHORTCUT_CODE = `<div className="mx-auto w-full max-w-sm">
         </CommandItem>
       </CommandGroup>
     </CommandList>
-  </Command>
+    <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+      <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+      <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+    </div>
+  </CommandDialog>
 </div>`;
 
-const COMMAND_DISABLED_CODE = `<div className="mx-auto w-full max-w-sm">
-  <Command className="border">
+const COMMAND_DISABLED_CODE = `<div className="flex justify-center">
+  <CommandDialog trigger={<Button variant="outline">Search actions...</Button>}>
     <CommandInput placeholder="Type a command..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>
@@ -7900,7 +7948,42 @@ const COMMAND_DISABLED_CODE = `<div className="mx-auto w-full max-w-sm">
         </CommandItem>
       </CommandGroup>
     </CommandList>
-  </Command>
+    <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+      <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+      <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+    </div>
+  </CommandDialog>
+</div>`;
+
+const COMMAND_TRIGGER_IMPORT = `import {
+  Button,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  Kbd,
+} from "@noarka/ui";`;
+
+const COMMAND_TRIGGER_CODE = `<div className="flex justify-center">
+  <CommandDialog trigger={<Button variant="outline">Search actions...</Button>}>
+    <CommandInput placeholder="Search for apps and commands..." />
+    <CommandList>
+      <CommandEmpty>No results found.</CommandEmpty>
+      <CommandGroup heading="Suggestions">
+        <CommandItem value="calendar">Calendar</CommandItem>
+        <CommandItem value="docs">Documentation</CommandItem>
+        <CommandItem value="themes">Themes</CommandItem>
+      </CommandGroup>
+    </CommandList>
+    <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+      <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+      <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+      <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+    </div>
+  </CommandDialog>
 </div>`;
 
 const COMMAND_API: ApiSection[] = [
@@ -7960,6 +8043,32 @@ const COMMAND_API: ApiSection[] = [
         name: "className",
         type: "string",
         description: "Additional classes merged with the default menu styles.",
+      },
+    ],
+  },
+  {
+    component: "CommandDialog",
+    props: [
+      {
+        name: "trigger",
+        type: "ReactElement",
+        description:
+          "Element rendered as the open trigger, e.g. render a Button. Omit it and control open / onOpenChange yourself for hotkey-driven palettes.",
+      },
+      {
+        name: "open",
+        type: "boolean",
+        description: "Controlled open state. Use with onOpenChange.",
+      },
+      {
+        name: "onOpenChange",
+        type: "(open: boolean) => void",
+        description: "Called when the menu opens or closes (Esc, outside click).",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional classes merged onto the floating panel.",
       },
     ],
   },
@@ -8703,7 +8812,7 @@ export const COMPONENTS: ComponentEntry[] = [
 
 <div className="flex items-center justify-center gap-3">
   <Avatar>
-    <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+    <AvatarImage src="/placeholder-image.png" alt="Avatar" />
     <AvatarFallback>NK</AvatarFallback>
   </Avatar>
   <Avatar>
@@ -8713,7 +8822,7 @@ export const COMPONENTS: ComponentEntry[] = [
     demo: (
       <div className="flex items-center justify-center gap-3">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+          <AvatarImage src="/placeholder-image.png" alt="Avatar" />
           <AvatarFallback>NK</AvatarFallback>
         </Avatar>
         <Avatar>
@@ -8738,15 +8847,15 @@ export const COMPONENTS: ComponentEntry[] = [
           demo: (
             <div className="flex items-center justify-center gap-3">
               <Avatar className="h-8 w-8">
-                <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+                <AvatarImage src="/placeholder-image.png" alt="Avatar" />
                 <AvatarFallback>NK</AvatarFallback>
               </Avatar>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+                <AvatarImage src="/placeholder-image.png" alt="Avatar" />
                 <AvatarFallback>NK</AvatarFallback>
               </Avatar>
               <Avatar className="h-12 w-12">
-                <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+                <AvatarImage src="/placeholder-image.png" alt="Avatar" />
                 <AvatarFallback>NK</AvatarFallback>
               </Avatar>
             </div>
@@ -8759,7 +8868,7 @@ export const COMPONENTS: ComponentEntry[] = [
           demo: (
             <div className="flex items-center justify-center gap-3">
               <Avatar className="rounded-xl">
-                <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+                <AvatarImage src="/placeholder-image.png" alt="Avatar" />
                 <AvatarFallback className="rounded-xl">NK</AvatarFallback>
               </Avatar>
               <Avatar className="rounded-xl">
@@ -8775,7 +8884,7 @@ export const COMPONENTS: ComponentEntry[] = [
           demo: (
             <div className="flex justify-center -space-x-2">
               <Avatar className="ring-2 ring-card">
-                <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+                <AvatarImage src="/placeholder-image.png" alt="Avatar" />
                 <AvatarFallback>NK</AvatarFallback>
               </Avatar>
               <Avatar className="ring-2 ring-card">
@@ -9254,7 +9363,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
               <Label htmlFor="demo-invite">Email</Label>
               <Input id="demo-invite" placeholder="teammate@company.com" />
             </div>
-            <DialogFooter footer>
+            <DialogFooter>
               <Button>Send invite</Button>
             </DialogFooter>
           </DialogContent>
@@ -9292,7 +9401,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
                     <Label htmlFor="demo-invite-footer">Email</Label>
                     <Input id="demo-invite-footer" placeholder="teammate@company.com" />
                   </div>
-                  <DialogFooter footer showCloseButton>
+                  <DialogFooter showCloseButton>
                     <Button>Send invite</Button>
                   </DialogFooter>
                 </DialogContent>
@@ -9327,7 +9436,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
                     <p>Abuse, spam, or unlawful content may result in suspension without notice.</p>
                     <p>Questions? Contact support and we will respond within two business days.</p>
                   </div>
-                  <DialogFooter footer>
+                  <DialogFooter>
                     <Button>Accept</Button>
                   </DialogFooter>
                 </DialogContent>
@@ -9353,7 +9462,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
         <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
       </AlertDialogHeader>
-      <AlertDialogFooter footer>
+      <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction>Delete</AlertDialogAction>
       </AlertDialogFooter>
@@ -9369,7 +9478,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
               <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter footer>
+            <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction>Delete</AlertDialogAction>
             </AlertDialogFooter>
@@ -9406,7 +9515,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
                       Archived projects are hidden from your workspace but can be restored at any time.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
-                  <AlertDialogFooter footer>
+                  <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction variant="default">Archive</AlertDialogAction>
                   </AlertDialogFooter>
@@ -9430,7 +9539,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
                       Ada will lose access immediately. You can invite them back later.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
-                  <AlertDialogFooter footer>
+                  <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction>Remove</AlertDialogAction>
                   </AlertDialogFooter>
@@ -9441,7 +9550,7 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
         },
         {
           title: "No footer",
-          description: "Skip the footer prop for a plain footer with no background or border.",
+          description: "Omit the footer entirely for a borderless layout.",
           code: ALERT_DIALOG_SINGLE_ACTION_CODE,
           demo: (
             <div className="flex justify-center">
@@ -10618,9 +10727,9 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
     imports: ["Command", "CommandInput", "CommandList", "CommandEmpty", "CommandGroup", "CommandItem"],
     code: COMMAND_PREVIEW_CODE,
     demo: (
-      <div className="mx-auto w-full max-w-sm">
-        <Command className="border">
-          <CommandInput placeholder="Type a command..." />
+      <div className="flex justify-center">
+        <CommandDialog trigger={<Button variant="outline">Search actions...</Button>}>
+          <CommandInput placeholder="Search for apps and commands..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Suggestions">
@@ -10629,7 +10738,12 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
               <CommandItem value="themes">Themes</CommandItem>
             </CommandGroup>
           </CommandList>
-        </Command>
+          <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+            <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+            <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+          </div>
+        </CommandDialog>
       </div>
     ),
     details: {
@@ -10647,8 +10761,8 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
           description: "Split actions into labelled groups with a separator.",
           code: COMMAND_GROUPS_CODE,
           demo: (
-            <div className="mx-auto w-full max-w-sm">
-              <Command className="border">
+            <div className="flex justify-center">
+              <CommandDialog trigger={<Button variant="outline">Search settings...</Button>}>
                 <CommandInput placeholder="Search settings..." />
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>
@@ -10662,7 +10776,12 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
                     <CommandItem value="keys">API keys</CommandItem>
                   </CommandGroup>
                 </CommandList>
-              </Command>
+                <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+                  <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+                  <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+                </div>
+              </CommandDialog>
             </div>
           ),
         },
@@ -10671,8 +10790,8 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
           description: "Hint at keyboard equivalents beside each action.",
           code: COMMAND_SHORTCUT_IMPORT + "\n\n" + COMMAND_SHORTCUT_CODE,
           demo: (
-            <div className="mx-auto w-full max-w-sm">
-              <Command className="border">
+            <div className="flex justify-center">
+              <CommandDialog trigger={<Button variant="outline">Open commands...</Button>}>
                 <CommandInput placeholder="Type a command..." />
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>
@@ -10685,7 +10804,12 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
                     </CommandItem>
                   </CommandGroup>
                 </CommandList>
-              </Command>
+                <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+                  <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+                  <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+                </div>
+              </CommandDialog>
             </div>
           ),
         },
@@ -10694,8 +10818,8 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
           description: "Items can be locked so they cannot be selected.",
           code: COMMAND_DISABLED_CODE,
           demo: (
-            <div className="mx-auto w-full max-w-sm">
-              <Command className="border">
+            <div className="flex justify-center">
+              <CommandDialog trigger={<Button variant="outline">Search actions...</Button>}>
                 <CommandInput placeholder="Type a command..." />
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>
@@ -10706,7 +10830,37 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
                     </CommandItem>
                   </CommandGroup>
                 </CommandList>
-              </Command>
+                <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+                  <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+                  <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+                </div>
+              </CommandDialog>
+            </div>
+          ),
+        },
+        {
+          title: "With trigger button",
+          description: "Open the floating menu from a button.",
+          code: COMMAND_TRIGGER_IMPORT + "\n\n" + COMMAND_TRIGGER_CODE,
+          demo: (
+            <div className="flex justify-center">
+              <CommandDialog trigger={<Button variant="outline">Search actions...</Button>}>
+                <CommandInput placeholder="Search for apps and commands..." />
+                <CommandList>
+                  <CommandEmpty>No results found.</CommandEmpty>
+                  <CommandGroup heading="Suggestions">
+                    <CommandItem value="calendar">Calendar</CommandItem>
+                    <CommandItem value="docs">Documentation</CommandItem>
+                    <CommandItem value="themes">Themes</CommandItem>
+                  </CommandGroup>
+                </CommandList>
+                <div className="flex items-center gap-4 border-t border-border/60 bg-accent px-3 py-2.5 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1"><Kbd>↑</Kbd><Kbd>↓</Kbd> Navigate</span>
+                  <span className="flex items-center gap-1"><Kbd>↵</Kbd> Open</span>
+                  <span className="ml-auto flex items-center gap-1.5"><Kbd>Esc</Kbd> Close</span>
+                </div>
+              </CommandDialog>
             </div>
           ),
         },

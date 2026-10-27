@@ -3,11 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
-import { Button } from "@noarka/ui";
+import { Button, Sheet, SheetContent, SheetHeader, SheetTitle, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@noarka/ui";
+import { HamburgerMenuLinearIcon } from "@solar-icons/react";
 import { DocsSearch } from "./docs-search";
+import { DocsSidebarContent } from "./docs-sidebar";
 import { ThemeToggle } from "./theme-toggle";
 
-const GITHUB_URL = "https://github.com/noarkahq/Noarka";
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
@@ -23,38 +24,71 @@ function GitHubIcon({ className }: { className?: string }) {
 }
 
 export function DocsHeader() {
+  const [open, setOpen] = React.useState(false);
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-      <div className="mx-auto w-full max-w-6xl bg-transparent py-2 backdrop-blur-sm backdrop-saturate-150">
+      <div className="mx-auto w-full max-w-6xl bg-background py-2 backdrop-blur-sm backdrop-saturate-150">
         <div className="flex h-10 w-full items-center justify-between gap-4 px-5">
-          <Link href="/" className="flex w-fit shrink-0 items-center gap-2">
-            <Image
-              src="/logo.svg"
-              alt="Noarka UI logo"
-              width={20}
-              height={20}
-              // The mark is a solid white silhouette, so it disappears on the
-              // light background. Invert it there; keep it as-is in dark mode.
-              className="size-5 invert dark:invert-0"
-            />
-            <span className="font-serif text-lg font-medium">noarka ui</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              className="lg:hidden"
+              aria-label="Open navigation"
+              onClick={() => setOpen(true)}
+            >
+              <HamburgerMenuLinearIcon className="size-5" />
+            </Button>
+            {open && (
+              <Sheet open onOpenChange={setOpen}>
+                <SheetContent side="left" className="w-64">
+                  <SheetHeader>
+                    <SheetTitle>Navigation</SheetTitle>
+                  </SheetHeader>
+                  <div className="overflow-y-auto px-4 pb-6">
+                    <DocsSidebarContent closeOnNavigate />
+                  </div>
+                </SheetContent>
+              </Sheet>
+            )}
+            <Link href="/" className="flex w-fit shrink-0 items-center gap-2">
+              <Image
+                src="/logo.svg"
+                alt="Noarka UI logo"
+                width={20}
+                height={20}
+                className="size-5 invert dark:invert-0"
+              />
+              <span className="font-serif text-lg font-medium">noarka ui</span>
+            </Link>
+          </div>
 
           <div className="flex items-center gap-2">
-            <DocsSearch className="w-40 sm:w-52" />
+            <DocsSearch className="hidden w-40 sm:block sm:w-52" />
 
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Noarka on GitHub"
-              title="Noarka on GitHub"
-              className="flex size-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-              <GitHubIcon className="size-4" />
-            </a>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <a
+                      href="https://github.com/NoarkaTech/ui"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Noarka on GitHub"
+                      className="flex size-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    >
+                      <GitHubIcon className="size-4" />
+                    </a>
+                  }
+                />
+                <TooltipContent side="bottom">GitHub</TooltipContent>
+              </Tooltip>
 
-            <ThemeToggle />
+              <Tooltip>
+                <TooltipTrigger render={<ThemeToggle />} />
+                <TooltipContent side="bottom">Toggle theme</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>

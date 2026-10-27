@@ -35,7 +35,7 @@ export function NestedDialogDemo() {
           >
             Advanced settings
           </Button>
-          <DialogFooter footer>
+          <DialogFooter>
             <Button>Send invite</Button>
           </DialogFooter>
         </DialogContent>
@@ -52,7 +52,7 @@ export function NestedDialogDemo() {
             <DialogTitle>Advanced settings</DialogTitle>
             <DialogDescription>These apply to every invite.</DialogDescription>
           </DialogHeader>
-          <DialogFooter footer>
+          <DialogFooter>
             <DialogClose render={<Button variant="outline">Done</Button>} />
           </DialogFooter>
         </DialogContent>

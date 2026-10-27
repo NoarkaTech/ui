@@ -37,7 +37,7 @@ export default function IntroductionPage() {
     <div className="min-h-svh max-w-6xl mx-auto">
       <DocsHeader />
 
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 pt-14 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[200px_minmax(0,1fr)_180px]">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 pt-14 lg:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[240px_minmax(0,1fr)_180px]">
         <DocsSidebar />
 
         {/* Middle content */}
@@ -133,8 +133,6 @@ export default function IntroductionPage() {
               </li>
             </ul>
           </DocSection>
-
-          <Separator />
         </main>
 
         {/* Right table of contents */}

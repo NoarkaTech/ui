@@ -50,7 +50,7 @@ export function PageToc({
   return (
     <aside className="hidden xl:block">
       <nav className="sticky top-20 max-h-[calc(100svh-3rem)] overflow-y-auto pb-14">
-        <p className="mb-2 text-xs font-medium tracking-widest text-muted-foreground uppercase">
+        <p className="mb-2 text-xs font-medium">
           On This Page
         </p>
         <ul className="space-y-1 border-l">
@@ -89,16 +89,6 @@ export function PageToc({
             </li>
           ))}
         </ul>
-        {footer && (
-          <div className="mt-6 border-t pt-4">
-            <a
-              href={footer.href}
-              className="block rounded-lg px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-              {footer.label}
-            </a>
-          </div>
-        )}
       </nav>
     </aside>
   );

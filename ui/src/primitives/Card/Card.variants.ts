@@ -4,8 +4,8 @@ export const cardVariants = cva("group/card flex flex-col", {
   variants: {
     variant: {
       default:
-        "border bg-card/80 text-card-foreground overflow-hidden rounded-2xl text-sm has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      border: "rounded-3xl border border-border/60 bg-card/30 p-1",
+        "w-full border bg-card/80 text-card-foreground overflow-hidden rounded-2xl text-sm has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+      border: "w-full rounded-3xl border border-border/60 bg-card/30 p-1",
     },
     size: {
       default: "",

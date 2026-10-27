@@ -12,7 +12,7 @@ export default function ComponentsPage() {
     <div className="min-h-svh max-w-6xl mx-auto">
       <DocsHeader />
 
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 pt-14 lg:grid-cols-[200px_minmax(0,1fr)]">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 pt-14 lg:grid-cols-[240px_minmax(0,1fr)]">
         <DocsSidebar />
 
         <main className="min-w-0 space-y-8 pb-14">

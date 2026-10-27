@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { DocsHeader } from "../components/docs-header";
 
-import { AltArrowRightLinearIcon, AddLinearIcon } from "@solar-icons/react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -61,6 +60,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@noarka/ui";
+import { ArrowRightIcon } from "@solar-icons/react/dynamic/arrow-right";
 function Section({
   id,
   title,
@@ -94,10 +94,10 @@ export default function DocsPage() {
         {/* Hero */}
         <section id="overview" className="w-full mx-auto max-w-6xl px-6 pt-20 pb-10">
           <h1 className="mt-6 max-w-2xl font-serif text-4xl font-medium text-balance">
-            The modern library for modern developers.
+            The modern library for modern user interfaces.
           </h1>
-          <p className="mt-3 max-w-xl text-md text-muted-foreground">
-            Create modern user interfaces with Noarka UI, a shared component library built on Base UI primitives. Designed for every Noarka application.
+          <p className="mt-3 max-w-xl text-base text-muted-foreground">
+            Accessible, composable primitives for building product interfaces. Styled with Tailwind CSS v4 and driven by design tokens.
           </p>
         </section>
 
@@ -116,13 +116,19 @@ export default function DocsPage() {
                 title: "Documentation",
                 subtitle: "Installation, theming, and usage guides",
                 href: "/docs",
-                action: "Go to documentation",
+                action: "Go to Docs",
               },
               {
                 title: "Components",
                 subtitle: "Buttons, inputs, dialogs, and more",
                 href: "/components",
-                action: "Go to components",
+                action: "Components",
+              },
+              {
+                title: "Changelog",
+                subtitle: "Updates and changes to the library",
+                href: "/changelog",
+                action: "Changelog",
               },
             ].map((row, i) => (
               <div key={row.title}>
@@ -132,26 +138,13 @@ export default function DocsPage() {
                     <p className="text-sm font-medium">{row.title}</p>
                     <p className="truncate text-sm text-muted-foreground">{row.subtitle}</p>
                   </div>
-                  <Button variant="outline" size="sm" className="shrink-0" render={<Link href={row.href}>{row.action}</Link>} />
+                  <Button size="sm" className="shrink-0" render={<Link href={row.href}>{row.action} <ArrowRightIcon /></Link>} />
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Contact */}
-        <section id="contact" className="mx-auto w-full max-w-6xl pt-30 px-6 pb-20">
-          <div className="flex items-center justify-between gap-4">
-            <p className="max-w-xl font-medium text-foreground">
-              Contact.{" "}
-              <span className="text-muted-foreground">
-                The only way to reach Noarka is through the Noarka account
-                center. Open a support ticket and the team will get back to you.
-              </span>
-            </p>
-            <Button variant="outline" size="sm" className="shrink-0" render={<a href="https://noarka.com/account/support" target="_blank" rel="noopener noreferrer">Contact support</a>} />
-          </div>
-        </section>
       </div>
     </TooltipProvider>
   );

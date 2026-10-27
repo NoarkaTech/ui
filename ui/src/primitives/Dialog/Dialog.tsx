@@ -99,20 +99,17 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
 
 function DialogFooter({
   className,
-  footer = false,
   showCloseButton = false,
   children,
   ...props
 }: React.ComponentProps<"div"> & {
-  footer?: boolean;
   showCloseButton?: boolean;
 }) {
   return (
     <div
       data-slot="dialog-footer"
       className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        footer && "-mx-4 -mb-4 rounded-b-2xl border-t bg-surface p-4",
+        "-mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-2xl border-t bg-surface p-4 sm:flex-row sm:justify-end",
         className
       )}
       {...props}

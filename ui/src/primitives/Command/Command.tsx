@@ -5,6 +5,13 @@ import { Command as CommandPrimitive } from "cmdk";
 import { MagnifierIcon } from "@solar-icons/react/linear";
 
 import { cn } from "../../utils/cn";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "../Dialog/Dialog";
 
 export type CommandProps = React.ComponentProps<typeof CommandPrimitive>;
 
@@ -29,13 +36,13 @@ function CommandInput({ className, ...props }: CommandInputProps) {
   return (
     <div
       data-slot="command-input-wrapper"
-      className="flex h-10 shrink-0 items-center gap-2 border-b border-border/60 px-3"
+      className="flex h-10 shrink-0 items-center gap-2 border-b border-border/60 bg-accent px-3"
     >
       <MagnifierIcon className="size-4 shrink-0 text-muted-foreground" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          "placeholder:text-muted-foreground/72 flex h-10 w-full min-w-0 bg-transparent text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          "placeholder:text-muted-foreground/80 flex h-10 w-full min-w-0 bg-transparent text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         {...props}
@@ -104,7 +111,7 @@ function CommandItem({ className, ...props }: CommandItemProps) {
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[selected=true]:**:text-accent-foreground [&_svg:not([class*='size-'])]:size-3.5 group/command-item relative flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1 text-xs leading-snug outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[selected=true]:**:text-accent-foreground hover:bg-accent hover:text-accent-foreground [&_svg:not([class*='size-'])]:size-3.5 group/command-item relative flex min-h-9 cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-sm leading-snug outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
       {...props}
@@ -120,7 +127,7 @@ function CommandSeparator({ className, ...props }: CommandSeparatorProps) {
   return (
     <CommandPrimitive.Separator
       data-slot="command-separator"
-      className={cn("bg-border/50 -mx-1 my-1 h-px", className)}
+      className={cn("bg-border -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
@@ -141,8 +148,54 @@ function CommandShortcut({ className, ...props }: CommandShortcutProps) {
   );
 }
 
+export type CommandDialogProps = Omit<
+  React.ComponentProps<typeof Dialog>,
+  "children"
+> & {
+  children?: React.ReactNode;
+  /**
+   * Element rendered as the open trigger, e.g. `<Button>Search...</Button>`.
+   * Omit it and control `open` / `onOpenChange` yourself for hotkey-driven
+   * palettes.
+   */
+  trigger?: React.ReactElement;
+  className?: string;
+};
+
+/**
+ * Floating command menu. Renders the palette in a centered modal with a
+ * backdrop; closes on Esc or outside click. Compose the palette
+ * (CommandInput, CommandList, groups) as children.
+ */
+function CommandDialog({
+  trigger,
+  className,
+  children,
+  ...props
+}: CommandDialogProps) {
+  return (
+    <Dialog {...props}>
+      {trigger != null && <DialogTrigger render={trigger} />}
+      <DialogContent
+        showCloseButton={false}
+        className={cn(
+          "gap-0 overflow-hidden p-0 sm:max-w-lg",
+          className
+        )}
+      >
+        <DialogTitle className="sr-only">Command palette</DialogTitle>
+        <DialogDescription className="sr-only">
+          Search for apps and commands.
+        </DialogDescription>
+        <Command className="w-full rounded-none">{children}</Command>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export {
   Command,
+  CommandDialog,
   CommandInput,
   CommandList,
   CommandEmpty,

@@ -1,21 +1,25 @@
 "use client";
 
 import { MoonLinearIcon, SunLinearIcon } from "@solar-icons/react";
-import { cn } from "@noarka/ui";
+import { Button, cn } from "@noarka/ui";
+import * as React from "react";
 import { useTheme } from "./theme-provider";
 
-export function ThemeToggle({ className }: { className?: string }) {
+export function ThemeToggle({
+  className,
+  ...props
+}: { className?: string } & React.ComponentProps<"button">) {
   const { theme, setTheme } = useTheme();
   const resolved = theme ?? "dark";
-
   return (
-    <button
-      type="button"
+    <Button
+    size="icon"
+    variant="ghost"
+      {...props}
       onClick={() => setTheme(resolved === "dark" ? "light" : "dark")}
       aria-label={`Switch to ${resolved === "dark" ? "light" : "dark"} mode`}
-      title={`Switch to ${resolved === "dark" ? "light" : "dark"} mode`}
       className={cn(
-        "flex size-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+        "flex items-center justify-center rounded-lg border border-transparent text-muted-foreground",
         className
       )}
     >
@@ -24,6 +28,6 @@ export function ThemeToggle({ className }: { className?: string }) {
       ) : (
         <SunLinearIcon size={16} />
       )}
-    </button>
+    </Button>
   );
 }

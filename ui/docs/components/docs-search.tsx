@@ -42,7 +42,7 @@ export function DocsSearch({ className }: { className?: string }) {
         <div className="relative">
           <MagnifierLinearIcon
             size={15}
-            className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-muted-foreground"
+            className="pointer-events-none absolute top-1/2 left-2.5 z-10 -translate-y-1/2 text-muted-foreground opacity-100"
           />
           <AutocompleteInput
             aria-label="Search the documentation"

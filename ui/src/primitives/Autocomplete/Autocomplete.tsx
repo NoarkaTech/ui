@@ -159,7 +159,7 @@ function Autocomplete({
       <AutocompleteFilterContext.Provider value={effectiveFilter}>
         <ComboboxPrimitive.Root
           data-slot="autocomplete"
-          items={derivedItems}
+          items={derivedItems as any}
           itemToStringLabel={resolvedItemToStringLabel}
           filter={baseFilter}
           openOnInputClick={openOnInputClick}
@@ -181,7 +181,7 @@ function AutocompleteInput({
     <ComboboxPrimitive.Input
       data-slot="autocomplete-input"
       className={cn(
-        "h-9 w-full min-w-0 rounded-lg bg-input bg-clip-padding px-[calc(--spacing(3)-1px)] text-base leading-9 outline-none placeholder:text-muted-foreground/72 focus-visible:border-ring sm:h-8 sm:text-sm sm:leading-8",
+        "h-9 w-full min-w-0 rounded-lg border text-foreground/70 px-[calc(--spacing(3)-1px)] text-base leading-9 placeholder:text-muted-foreground/72 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 sm:h-8 sm:text-sm sm:leading-8 dark:bg-input dark:hover:brightness-110",
         className
       )}
       {...props}
@@ -204,7 +204,7 @@ export type AutocompleteContentProps = Omit<
 function AutocompleteContent({
   className,
   side = "bottom",
-  sideOffset = 4,
+  sideOffset = 8,
   align = "center",
   alignOffset = 0,
   children,
@@ -264,7 +264,7 @@ function AutocompleteItem({
     <ComboboxPrimitive.Item
       data-slot="autocomplete-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-lg px-2 py-1.5 text-[13px] text-foreground/80 min-h-8 outline-hidden select-none hover:bg-accent hover:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "relative flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-[13px] text-foreground/80 min-h-8 outline-hidden select-none hover:bg-accent hover:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       render={render}

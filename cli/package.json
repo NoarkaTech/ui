@@ -1,6 +1,6 @@
 {
   "name": "@noarka/cli",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Scaffold Noarka UI primitives into your project, shadcn-style.",
   "license": "MIT",
   "type": "module",

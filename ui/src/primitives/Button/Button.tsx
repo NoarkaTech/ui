@@ -32,6 +32,30 @@ function inferNativeButton(
   return undefined;
 }
 
+/**
+ * The `size` dimension owns the button's dimensions. Height and padding
+ * utilities passed by a call site are stripped so every variant renders at the
+ * box its size declares, keeping all variants visually identical.
+ */
+const DIMENSION_OVERRIDE_PATTERN = /^(h|py|px|size)-/;
+
+function isDimensionOverride(cls: string): boolean {
+  // Arbitrary variants (e.g. `[&_svg]:size-4`) target children, not the root.
+  if (cls.startsWith("[")) return false;
+  const utility = (cls.split(":").pop() ?? cls).replace(/[!?]/g, "");
+  return DIMENSION_OVERRIDE_PATTERN.test(utility);
+}
+
+function withoutDimensionOverrides(className?: string): string | undefined {
+  if (!className) return className;
+  return (
+    className
+      .split(/\s+/)
+      .filter((cls) => cls !== "" && !isDimensionOverride(cls))
+      .join(" ") || undefined
+  );
+}
+
 function Button({
   className,
   variant = "default",
@@ -45,7 +69,10 @@ function Button({
       data-slot="button"
       data-variant={variant ?? undefined}
       data-size={size ?? undefined}
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size }),
+        withoutDimensionOverrides(className)
+      )}
       render={render}
       nativeButton={nativeButton ?? inferNativeButton(render) ?? true}
       {...props}

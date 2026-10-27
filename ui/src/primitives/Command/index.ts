@@ -1,5 +1,6 @@
 export {
   Command,
+  CommandDialog,
   CommandInput,
   CommandList,
   CommandEmpty,
@@ -10,6 +11,7 @@ export {
 } from "./Command";
 export type {
   CommandProps,
+  CommandDialogProps,
   CommandInputProps,
   CommandListProps,
   CommandEmptyProps,

@@ -115,10 +115,19 @@ function peerDeps(dir: string): string[] {
 function cmdInit(projectDir: string, overwrite: boolean): void {
   const { target, status } = ensureCn(projectDir, overwrite);
   console.log(`${status}: ${path.relative(process.cwd(), target)}`);
-  console.log("\nNext: import the design tokens once in your global CSS:");
-  console.log('  @import "@noarka/ui/styles/tokens.css";');
-  console.log('  @import "@noarka/ui/styles/base.css";');
-  console.log('  @source "../node_modules/@noarka/ui/dist/**/*.js";');
+  const cssTarget = path.join(projectDir, "styles", "globals.css");
+  const cssContent = `@import "@noarka/ui/styles/tokens.css";
+@import "@noarka/ui/styles/base.css";
+
+/* Required: node_modules is skipped by Tailwind v4's automatic content detection. */
+@source "../node_modules/@noarka/ui/dist/**/*.js";
+`;
+  const cssStatus = writeFile(cssTarget, cssContent, overwrite);
+  console.log(`${cssStatus}: ${path.relative(process.cwd(), cssTarget)}`);
+  console.log("\nNext: import the scaffolded stylesheet once in your app entry:");
+  console.log('  import "./styles/globals.css";');
+  console.log("\nDesign tokens (incl. --surface) are now available as utilities:");
+  console.log("  bg-surface, text-foreground, bg-muted, ...");
 }
 
 function cmdAdd(name: string, projectDir: string, overwrite: boolean): void {

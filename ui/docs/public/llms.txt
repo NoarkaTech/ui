@@ -1,0 +1,21 @@
+# Noarka UI
+
+> An open-source React component library built on Base UI primitives and styled with Tailwind CSS v4.
+
+Noarka UI provides accessible, composable primitives (Button, Dialog, Select, Tabs, etc.) for building product interfaces. Styling flows through CSS variables (design tokens) defined in tokens.css. Components use the `render` prop for polymorphism (no `asChild`).
+
+Noarka UI was originally created as a private project sorely to build Noarka applications that use the exact same design system. After careful considerations, it was published as an open source design system for everyone to use.
+
+## Documentation
+- Home: https://ui.noarka.com
+- Introduction: https://ui.noarka.com/introduction
+- Components: https://ui.noarka.com/components
+- Theming: https://ui.noarka.com/theming
+- Changelog: https://ui.noarka.com/changelog
+
+## Installation
+npm install @noarka/ui @base-ui/react @solar-icons/react class-variance-authority clsx tailwind-merge
+
+## Links
+- GitHub: https://github.com/NoarkaTech/ui
+- License: MIT

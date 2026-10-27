@@ -50,7 +50,7 @@ function TabsTab({ className, render, ...props }: TabsTabProps) {
     <TabsPrimitive.Tab
       data-slot="tabs-tab"
       className={cn(
-        "rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors outline-none select-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-active:bg-muted data-active:text-foreground",
+        "rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 select-none hover:text-foreground focus-visible:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 disabled:pointer-events-none disabled:opacity-50 data-active:bg-muted data-active:text-foreground",
         className
       )}
       render={render}

@@ -23,8 +23,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Noarka UI",
-  description: "Documentation website for the @noarka/ui component library.",
+  metadataBase: new URL("https://ui.noarka.com"),
+  title: {
+    default: "Noarka UI",
+    template: "%s | Noarka UI",
+  },
+  description:
+    "Noarka UI — an open-source React component library built on Base UI primitives and styled with Tailwind CSS v4.",
+  keywords: [
+    "react",
+    "ui",
+    "components",
+    "base-ui",
+    "tailwindcss",
+    "design-system",
+    "accessible",
+    "noarka",
+  ],
+  authors: [{ name: "Noarka" }],
+  openGraph: {
+    type: "website",
+    siteName: "Noarka UI",
+    title: "Noarka UI",
+    description:
+      "An open-source React component library built on Base UI primitives and styled with Tailwind CSS v4.",
+    url: "https://ui.noarka.com",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Noarka UI — React component library",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Noarka UI",
+    description:
+      "An open-source React component library built on Base UI primitives and styled with Tailwind CSS v4.",
+    images: ["/og.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: "/logo.svg",
   },

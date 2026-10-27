@@ -234,6 +234,7 @@ export type {
 
 export {
   Command,
+  CommandDialog,
   CommandInput,
   CommandList,
   CommandEmpty,
@@ -244,6 +245,7 @@ export {
 } from "./primitives/Command";
 export type {
   CommandProps,
+  CommandDialogProps,
   CommandInputProps,
   CommandListProps,
   CommandEmptyProps,

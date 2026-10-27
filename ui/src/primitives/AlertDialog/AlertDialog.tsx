@@ -93,17 +93,13 @@ function AlertDialogHeader({
 
 function AlertDialogFooter({
   className,
-  footer = false,
   ...props
-}: React.ComponentProps<"div"> & {
-  footer?: boolean;
-}) {
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-dialog-footer"
       className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        footer && "bg-surface -mx-4 -mb-4 rounded-b-2xl border-t p-4",
+        "bg-surface -mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-2xl border-t p-4 sm:flex-row sm:justify-end",
         className
       )}
       {...props}

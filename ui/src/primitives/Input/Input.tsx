@@ -24,7 +24,7 @@ function Input({
       className={
         cn(
           !unstyled &&
-            "relative text-foreground/70 inline-flex w-full rounded-lg border bg-clip-padding text-base ring-ring/24 before:absolute transition-shadow cursor-default not-has-disabled:not-has-focus-visible:not-has-aria-invalid:before:shadow-[0_1px_--theme(--color-black/4%)] has-focus-visible:has-aria-invalid:border-destructive/64 has-focus-visible:has-aria-invalid:ring-destructive/16 has-aria-invalid:border-destructive/36 has-focus-visible:border-ring has-disabled:opacity-64 has-[:disabled,:focus-visible,[aria-invalid]]:shadow-none has-focus-visible:ring-[2px] sm:text-sm dark:bg-input dark:hover:brightness-110 transition-all duration-200 dark:has-aria-invalid:ring-destructive/24 dark:not-has-disabled:not-has-focus-visible:not-has-aria-invalid:before:shadow-[0_-1px_--theme(--color-white/8%)]",
+            "relative text-foreground/70 inline-flex w-full rounded-lg bg-clip-padding text-base before:absolute transition-shadow cursor-default not-has-disabled:not-has-focus-visible:not-has-aria-invalid:before:shadow-[0_1px_--theme(--color-black/4%)] has-focus-visible:has-aria-invalid:border-destructive/64 has-focus-visible:has-aria-invalid:ring-destructive/16 has-aria-invalid:border-destructive/36 has-focus-visible:border-primary/50 has-disabled:opacity-64 has-[:disabled,:focus-visible,[aria-invalid]]:shadow-none has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary/50 sm:text-sm dark:bg-input dark:hover:brightness-110 transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 dark:has-aria-invalid:ring-destructive/24 dark:not-has-disabled:not-has-focus-visible:not-has-aria-invalid:before:shadow-[0_-1px_--theme(--color-white/8%)]",
           className
         ) || undefined
       }
@@ -33,7 +33,7 @@ function Input({
     >
       <InputPrimitive
         className={cn(
-          "h-9 w-full min-w-0 rounded-[inherit] px-[calc(--spacing(3)-1px)] leading-9 outline-none placeholder:text-muted-foreground/72 sm:h-8 sm:leading-8",
+          "h-9 w-full min-w-0 rounded-[inherit] px-[calc(--spacing(3)-1px)] leading-9 outline-none placeholder:text-muted-foreground/72 sm:h-8 sm:leading-8 border",
           size === "sm" &&
             "h-8 px-[calc(--spacing(2.5)-1px)] leading-8 sm:h-7 sm:leading-7",
           size === "lg" && "h-10 leading-10 sm:h-9 sm:leading-9",

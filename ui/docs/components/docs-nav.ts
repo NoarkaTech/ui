@@ -45,13 +45,6 @@ export const GROUPS: NavGroup[] = [
       { label: "Tooltip", href: "/components/tooltip" },
     ],
   },
-  {
-    label: "Explore",
-    items: [
-      { label: "Component test bench", href: "/test" },
-      { label: "Back to home", href: "/" },
-    ],
-  },
 ];
 
 /** Flattened label + href list used by the header search. */

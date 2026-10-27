@@ -95,10 +95,10 @@ export default function DocsPage() {
 
         <section id="overview" className="w-full mx-auto max-w-6xl px-6 pt-20 pb-10">
           <h1 className="mt-6 max-w-2xl font-serif text-4xl font-medium text-balance">
-            A React component library built on Base UI and Tailwind CSS v4.
+            The modern UI library for modern developers.
           </h1>
           <p className="mt-3 max-w-xl text-base text-muted-foreground">
-            Accessible, composable primitives for building product interfaces. Styled with Tailwind CSS v4 and driven by design tokens.
+            Create modern user interfaces with Noarka UI, a shared component library built on Base UI primitives. Designed for every Noarka application.
           </p>
         </section>
 

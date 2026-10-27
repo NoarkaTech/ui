@@ -1,6 +1,6 @@
 # @noarka/cli
 
-Scaffold Noarka UI primitives into your project, shadcn-style.
+Scaffold Noarka UI primitives into your project.
 
 ```bash
 npx @noarka/cli init

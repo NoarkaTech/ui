@@ -38,7 +38,7 @@ const changelogs: ChangelogEntry[] = [
     title: "Focus ring parity and component polish",
     body: [
       "Every interactive primitive now shares one focus treatment: a 2px solid primary halo with a 2px gap, applied via focus-visible:border-primary/50 + outline-2 outline-offset-2 outline-primary/50. The transition is scoped to color/background/border/outline/box-shadow/filter so the offset never animates. Tailwind v4's outline-none (which suppresses later halos) was removed from Button, Checkbox, InputGroup, Autocomplete, Switch, Select trigger, Tabs tab, and Toggle.",
-      "The Command palette is now a floating modal menu (CommandDialog) with a centered, blurred backdrop, a Kbd hints footer, and hover backgrounds on items. Cards gained w-full on the default and border variants so standalone cards fill their container. Dialog and AlertDialog footers render their band by default (footer prop removed).",
+      "The Command palette is now a floating modal menu (CommandDialog) with a centered, blurred backdrop, a Kbd hints footer, and hover backgrounds on items. Cards gained w-full on the default and border variants so standalone cards fill their container. Dialog and AlertDialog footers render their band by default (footer prop removed). Base UI bumped to 1.9.0. Docs site gained a mobile hamburger nav (Sheet), hover tooltips on header buttons, SEO metadata, sitemap/robots, and llms.txt. Skeleton shimmer is now visible in light mode. The CLI scaffolds a globals.css with design tokens so bg-surface works out of the box.",
     ],
     groups: [
       {
@@ -55,6 +55,9 @@ const changelogs: ChangelogEntry[] = [
           "CommandItem now highlights on hover (hover:bg-accent) in addition to keyboard selection",
           "Card default and border variants gained w-full",
           "Button sizing: call-site classes no longer override the size dimension",
+          "Base UI bumped to 1.9.0",
+          "Docs site: mobile hamburger nav (Sheet), header tooltips, SEO metadata, sitemap/robots, llms.txt",
+          "Skeleton shimmer visible in light mode",
         ],
       },
       {
@@ -138,7 +141,7 @@ export default function ChangelogPage() {
               <h1 className="text-4xl mt-2 font-serif font-medium text-balance">
                 Changelog<br />
               </h1>
-              <p className="text-muted-foreground mt-2 max-w-xl text-md leading-relaxed">
+              <p className="text-muted-foreground mt-2 max-w-xl text-base leading-relaxed">
                 Noarka UI is an actively maintained and evolving library, lots of new features and improvements are added regularly.
               </p>
             </div>

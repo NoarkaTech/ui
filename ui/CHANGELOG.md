@@ -1,5 +1,16 @@
 # Changelog
 
+## CLI 0.1.7
+
+- `add` prompts per existing file (`... already exists. Replace it? (y/N)`), so local edits are never silently dropped. `--overwrite` still skips the prompt, and non-interactive runs (CI, pipes) keep existing files.
+- `init` and `add` now wire the design tokens into the project's real stylesheet entry (`app/globals.css`, `styles/globals.css`, `src/index.css`, ...): the `@theme` imports from `tokens.css`/`base.css` plus the `@source` scan path for the dist. No manual step, `bg-surface` and friends work immediately. A missing entry is created and the import line is printed.
+
+## CLI 0.1.6
+
+- Cross-primitive imports are rewritten for the flat `components/ui/` layout (e.g. `../Button/Button` becomes `./button`), fixing scaffolded files that failed to typecheck.
+- The `add` hint now suggests `npx @noarka/cli add <component>`.
+- The published dependency uses a normal npm range instead of `workspace:`, so installs work outside this monorepo.
+
 ## 0.1.5
 
 - Components scaffold as a single file. Variant definitions (Badge, Button, Card, Toggle) are merged into the component file; no more `.variants.ts` companions.

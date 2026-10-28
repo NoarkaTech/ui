@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.5
+
+- Components scaffold as a single file. Variant definitions (Badge, Button, Card, Toggle) are merged into the component file; no more `.variants.ts` companions.
+- `@noarka/cli`: cross-primitive imports are rewritten for the flat `components/ui/` layout (e.g. `../Button/Button` becomes `./button`). Fixes scaffolded files failing to typecheck.
+- `@noarka/cli`: the `add` hint now suggests `npx @noarka/cli add <component>`.
+- `@noarka/cli` dependency uses a normal npm range so installs work outside the monorepo.
+
 ## 0.1.4
 
 - Base UI bumped to 1.9.0.

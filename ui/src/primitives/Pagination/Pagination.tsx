@@ -4,7 +4,7 @@ import * as React from "react";
 import type { VariantProps } from "class-variance-authority";
 
 import { cn } from "../../utils/cn";
-import { buttonVariants } from "../Button/Button.variants";
+import { buttonVariants } from "../Button/Button";
 import { AltArrowLeftIcon, AltArrowRightIcon } from "@solar-icons/react/linear";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {

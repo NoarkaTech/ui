@@ -541,7 +541,7 @@ import * as React from "react";
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
 
 import { cn } from "../../utils/cn";
-import { Button } from "../Button/Button";
+import { Button } from "./button";
 
 function AlertDialog({ ...props }: AlertDialogPrimitive.Root.Props) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
@@ -1158,10 +1158,33 @@ const AVATAR_API: ApiSection[] = [
 const BADGE_SOURCE = `"use client";
 
 import * as React from "react";
-import type { VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "../../utils/cn";
-import { badgeVariants } from "./Badge.variants";
+
+export const badgeVariants = cva(
+  "h-5.5 gap-1 rounded-md border border-transparent px-1.5 py-1 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive overflow-hidden group/badge",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+        secondary:
+          "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
+        destructive:
+          "bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",
+        outline:
+          "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
+        ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+export type BadgeVariants = VariantProps<typeof badgeVariants>;
 
 export type BadgeProps = Omit<React.ComponentProps<"span">, "children"> &
   VariantProps<typeof badgeVariants> & {
@@ -1206,42 +1229,55 @@ function Badge({
   );
 }
 
-export { Badge, badgeVariants };`;
+export { Badge };
+`;
 
-const BADGE_VARIANTS_SOURCE = `import { cva, type VariantProps } from "class-variance-authority";
-
-export const badgeVariants = cva(
-  "h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! inline-flex items-center justify-center w-fit whitespace-nowrap shrink-0 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive overflow-hidden group/badge",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
-        secondary:
-          "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
-        destructive:
-          "bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",
-        outline:
-          "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
-        ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-);
-
-export type BadgeVariants = VariantProps<typeof badgeVariants>;`;
 
 const BUTTON_SOURCE = `"use client";
 
 import * as React from "react";
 import { Button as BaseButton } from "@base-ui/react/button";
-import type { VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "../../utils/cn";
-import { buttonVariants } from "./Button.variants";
+
+export const buttonVariants = cva(
+  "cursor-pointer [&>*]:opacity-80 rounded-lg border-none bg-clip-padding text-sm font-medium aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-[color,background-color,border-color,outline-color,box-shadow,filter] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 group/button select-none",
+  {
+    variants: {
+      variant: {
+        default:
+          "[&>*]:opacity-80 bg-primary text-primary-foreground dark:bg-primary/80 transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 hover:bg-primary/90 dark:hover:bg-primary/70 inset-shadow-sm inset-shadow-white/15",
+        outline:
+          "border-border text-muted-foreground border border-solid hover:bg-muted aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:brightness-110 transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200",
+        secondary:
+          "[&>*]:opacity-80 bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost:
+          "[&>*]:opacity-80 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground",
+        destructive:
+          "[&>*]:opacity-80 bg-destructive/10 border-none hover:bg-destructive/20 focus-visible:outline-destructive/20 dark:focus-visible:outline-destructive/40 dark:bg-destructive/20 text-destructive dark:hover:bg-destructive/30",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default:
+          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        xs: "h-6 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-7 gap-1 px-2.5 text-[13px] leading-[18px] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+        icon: "size-8",
+        "icon-xs": "size-6 rounded-full [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm": "size-7 rounded-full",
+        "icon-lg": "size-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 export type ButtonProps = Omit<
   BaseButton.Props,
@@ -1268,6 +1304,30 @@ function inferNativeButton(
   return undefined;
 }
 
+/**
+ * The \`size\` dimension owns the button's dimensions. Height and padding
+ * utilities passed by a call site are stripped so every variant renders at the
+ * box its size declares, keeping all variants visually identical.
+ */
+const DIMENSION_OVERRIDE_PATTERN = /^(h|py|px|size)-/;
+
+function isDimensionOverride(cls: string): boolean {
+  // Arbitrary variants (e.g. \`[&_svg]:size-4\`) target children, not the root.
+  if (cls.startsWith("[")) return false;
+  const utility = (cls.split(":").pop() ?? cls).replace(/[!?]/g, "");
+  return DIMENSION_OVERRIDE_PATTERN.test(utility);
+}
+
+function withoutDimensionOverrides(className?: string): string | undefined {
+  if (!className) return className;
+  return (
+    className
+      .split(/\\s+/)
+      .filter((cls) => cls !== "" && !isDimensionOverride(cls))
+      .join(" ") || undefined
+  );
+}
+
 function Button({
   className,
   variant = "default",
@@ -1281,7 +1341,10 @@ function Button({
       data-slot="button"
       data-variant={variant ?? undefined}
       data-size={size ?? undefined}
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size }),
+        withoutDimensionOverrides(className)
+      )}
       render={render}
       nativeButton={nativeButton ?? inferNativeButton(render) ?? true}
       {...props}
@@ -1289,47 +1352,9 @@ function Button({
   );
 }
 
-export { Button, buttonVariants };`;
+export { Button };
+`;
 
-const BUTTON_VARIANTS_SOURCE = `import { cva, type VariantProps } from "class-variance-authority";
-
-export const buttonVariants = cva(
-  "cursor-default [&>*]:opacity-80 focus-visible:border-ring cursor-default focus-visible:ring-ring/20 rounded-full border border-transparent bg-clip-padding text-sm font-medium focus-visible:ring-2 focus-visible:border-none aria-invalid:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none group/button select-none",
-  {
-    variants: {
-      variant: {
-        default:
-          "[&>*]:opacity-80 bg-primary text-primary-foreground dark:bg-primary/80 border-none transition-[filter] duration-200 hover:bg-primary/90 dark:hover:bg-primary/70 inset-shadow-sm inset-shadow-white/15 transition-all duration-200",
-        outline:
-          "border-border text-muted-foreground bg-background hover:bg-muted dark:bg-secondary aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:brightness-110 transition-all duration-200",
-        secondary:
-          "[&>*]:opacity-80 bg-secondary text-secondary-foreground hover:bg-secondary/80 ring-1 ring-inset ring-white/2",
-        ghost:
-          "[&>*]:opacity-80 hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground",
-        destructive:
-          "[&>*]:opacity-80 bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-full px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-full px-2.5 text-[13px] leading-[18px] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 rounded-full px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
-        icon: "size-8",
-        "icon-xs": "size-6 rounded-full [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-7 rounded-full",
-        "icon-lg": "size-9",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-);
-
-export type ButtonVariants = VariantProps<typeof buttonVariants>;`;
 
 const BADGE_IMPORT = `import { Badge } from "@noarka/ui";`;
 
@@ -1463,10 +1488,57 @@ const BUTTON_API: ApiSection[] = [
 ];
 
 const CARD_SOURCE = `import * as React from "react";
-import type { VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "../../utils/cn";
-import { cardInnerVariants, cardVariants } from "./Card.variants";
+
+export const cardVariants = cva("group/card flex flex-col", {
+  variants: {
+    variant: {
+      default:
+        "w-full border bg-card/80 text-card-foreground overflow-hidden rounded-2xl text-sm has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+      border: "w-full rounded-3xl border border-border/60 bg-card/30 p-1",
+    },
+    size: {
+      default: "",
+      sm: "",
+    },
+  },
+  compoundVariants: [
+    {
+      variant: "default",
+      size: "default",
+      className: "gap-4 py-4",
+    },
+    {
+      variant: "default",
+      size: "sm",
+      className: "gap-3 py-3 has-data-[slot=card-footer]:pb-0",
+    },
+  ],
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});
+
+// Inner box for the \`border\` variant (the second border).
+export const cardInnerVariants = cva(
+  "border border-border/60 bg-card/80 text-card-foreground shadow-xs overflow-hidden rounded-2xl p-4 text-sm has-data-[slot=card-footer]:pb-0 flex flex-col",
+  {
+    variants: {
+      size: {
+        default: "gap-4",
+        sm: "gap-3 p-3",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  }
+);
+
+export type CardVariants = VariantProps<typeof cardVariants>;
 
 export type CardProps = Omit<React.ComponentProps<"div">, "children"> &
   VariantProps<typeof cardVariants> & {
@@ -1592,57 +1664,9 @@ export {
   CardAction,
   CardDescription,
   CardContent,
-};`;
+};
+`;
 
-const CARD_VARIANTS_SOURCE = `import { cva, type VariantProps } from "class-variance-authority";
-
-export const cardVariants = cva("group/card flex flex-col", {
-  variants: {
-    variant: {
-      default:
-        "border bg-card/80 text-card-foreground overflow-hidden rounded-2xl text-sm has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-      border: "rounded-3xl border border-border/60 bg-card/30 p-1",
-    },
-    size: {
-      default: "",
-      sm: "",
-    },
-  },
-  compoundVariants: [
-    {
-      variant: "default",
-      size: "default",
-      className: "gap-4 py-4",
-    },
-    {
-      variant: "default",
-      size: "sm",
-      className: "gap-3 py-3 has-data-[slot=card-footer]:pb-0",
-    },
-  ],
-  defaultVariants: {
-    variant: "default",
-    size: "default",
-  },
-});
-
-// Inner box for the \`border\` variant (the second border).
-export const cardInnerVariants = cva(
-  "border border-border/60 bg-card/80 text-card-foreground shadow-xs overflow-hidden rounded-2xl p-4 text-sm has-data-[slot=card-footer]:pb-0 flex flex-col",
-  {
-    variants: {
-      size: {
-        default: "gap-4",
-        sm: "gap-3 p-3",
-      },
-    },
-    defaultVariants: {
-      size: "default",
-    },
-  }
-);
-
-export type CardVariants = VariantProps<typeof cardVariants>;`;
 
 const CARD_IMPORT = `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@noarka/ui";`;
 
@@ -1943,7 +1967,7 @@ import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { CloseIcon } from "@solar-icons/react/linear";
 
 import { cn } from "../../utils/cn";
-import { Button } from "../Button/Button";
+import { Button } from "./button";
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -3946,7 +3970,7 @@ import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
 import { CloseIcon } from "@solar-icons/react/linear";
 
 import { cn } from "../../utils/cn";
-import { Button } from "../Button/Button";
+import { Button } from "./button";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
@@ -4680,10 +4704,33 @@ const TOGGLE_SOURCE = `"use client";
 
 import * as React from "react";
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
-import type { VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "../../utils/cn";
-import { toggleVariants } from "./Toggle.variants";
+
+export const toggleVariants = cva(
+  "inline-flex items-center justify-center rounded-lg text-sm font-medium transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 hover:bg-muted focus-visible:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-accent data-pressed:text-accent-foreground",
+  {
+    variants: {
+      variant: {
+        default: "bg-transparent",
+        outline:
+          "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
+      },
+      size: {
+        default: "h-9 px-3",
+        sm: "h-8 px-2.5",
+        lg: "h-11 px-5",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 export type ToggleProps = Omit<
   TogglePrimitive.Props,
@@ -4724,33 +4771,9 @@ function Toggle({
   );
 }
 
-export { Toggle, toggleVariants };`;
+export { Toggle };
+`;
 
-const TOGGLE_VARIANTS_SOURCE = `import { cva, type VariantProps } from "class-variance-authority";
-
-export const toggleVariants = cva(
-  "inline-flex items-center justify-center rounded-lg text-sm font-medium transition-[color,background-color,border-color,outline-color,box-shadow,filter] duration-200 hover:bg-muted focus-visible:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50 disabled:pointer-events-none disabled:opacity-50 data-pressed:bg-accent data-pressed:text-accent-foreground",
-  {
-    variants: {
-      variant: {
-        default: "bg-transparent",
-        outline:
-          "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
-      },
-      size: {
-        default: "h-9 px-3",
-        sm: "h-8 px-2.5",
-        lg: "h-11 px-5",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-);
-
-export type ToggleVariants = VariantProps<typeof toggleVariants>;`;
 
 const TOGGLE_IMPORT = `import { Toggle } from "@noarka/ui";`;
 
@@ -5576,7 +5599,7 @@ import * as React from "react";
 import type { VariantProps } from "class-variance-authority";
 
 import { cn } from "../../utils/cn";
-import { buttonVariants } from "../Button/Button.variants";
+import { buttonVariants } from "./button";
 import { AltArrowLeftIcon, AltArrowRightIcon } from "@solar-icons/react/linear";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
@@ -8374,7 +8397,6 @@ export const COMPONENTS: ComponentEntry[] = [
       source: BUTTON_SOURCE,
       sourceFilename: "components/ui/button.tsx",
       extraFiles: [
-        { filename: "components/ui/button.variants.ts", code: BUTTON_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: BUTTON_IMPORT,
@@ -8481,7 +8503,6 @@ export const COMPONENTS: ComponentEntry[] = [
       source: BADGE_SOURCE,
       sourceFilename: "components/ui/badge.tsx",
       extraFiles: [
-        { filename: "components/ui/badge.variants.ts", code: BADGE_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: BADGE_IMPORT,
@@ -8677,7 +8698,6 @@ export const COMPONENTS: ComponentEntry[] = [
       source: CARD_SOURCE,
       sourceFilename: "components/ui/card.tsx",
       extraFiles: [
-        { filename: "components/ui/card.variants.ts", code: CARD_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: CARD_IMPORT,
@@ -9164,7 +9184,6 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
       source: TOGGLE_SOURCE,
       sourceFilename: "components/ui/toggle.tsx",
       extraFiles: [
-        { filename: "components/ui/toggle.variants.ts", code: TOGGLE_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: TOGGLE_IMPORT,
@@ -9377,7 +9396,6 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
       sourceFilename: "components/ui/dialog.tsx",
       extraFiles: [
         { filename: "components/ui/button.tsx", code: BUTTON_SOURCE },
-        { filename: "components/ui/button.variants.ts", code: BUTTON_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: DIALOG_IMPORT,
@@ -9493,7 +9511,6 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
       sourceFilename: "components/ui/alert-dialog.tsx",
       extraFiles: [
         { filename: "components/ui/button.tsx", code: BUTTON_SOURCE },
-        { filename: "components/ui/button.variants.ts", code: BUTTON_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: ALERT_DIALOG_IMPORT,
@@ -9605,7 +9622,6 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
       sourceFilename: "components/ui/sheet.tsx",
       extraFiles: [
         { filename: "components/ui/button.tsx", code: BUTTON_SOURCE },
-        { filename: "components/ui/button.variants.ts", code: BUTTON_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: SHEET_IMPORT,
@@ -9791,7 +9807,6 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
       sourceFilename: "components/ui/menu.tsx",
       extraFiles: [
         { filename: "components/ui/button.tsx", code: BUTTON_SOURCE },
-        { filename: "components/ui/button.variants.ts", code: BUTTON_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: MENU_IMPORT,
@@ -10363,7 +10378,6 @@ import { AltArrowDownLinearIcon } from "@solar-icons/react";
       sourceFilename: "components/ui/popover.tsx",
       extraFiles: [
         { filename: "components/ui/button.tsx", code: BUTTON_SOURCE },
-        { filename: "components/ui/button.variants.ts", code: BUTTON_VARIANTS_SOURCE },
         { filename: "utils/cn.ts", code: CN_SOURCE },
       ],
       usageImport: POPOVER_IMPORT,

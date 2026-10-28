@@ -77,12 +77,26 @@ function scaffoldName(basename: string): string {
   return basename.charAt(0).toLowerCase() + basename.slice(1);
 }
 
+// All files land in one flat directory (`components/ui/`), so every import
+// must be rewritten for the new layout:
+//   `./Button.tsx`          -> `./button.tsx`   (name lowercasing)
+//   `../Button/Button`      -> `./button`       (sibling primitive, flattened)
+//   `../../utils/cn`        -> unchanged        (file stays two levels deep)
 function rewriteImports(source: string): string {
-  return source.replace(/from\s+["']\.\/([^"']+)["']/g, (_m, spec: string) => {
+  const lowerLast = (spec: string): string => {
     const parts = spec.split("/");
-    parts[parts.length - 1] = scaffoldName(parts[parts.length - 1]);
-    return `from "./${parts.join("/")}"`;
-  });
+    const last = parts[parts.length - 1];
+    parts[parts.length - 1] = scaffoldName(last);
+    return parts.join("/");
+  };
+  return source
+    .replace(/from\s+["'](\.\.\/[^"']+)["']/g, (_m, spec: string) => {
+      // Only single-traversal sibling imports (`../X/Y`) collapse into the flat
+      // directory; `../../utils/cn` keeps its depth.
+      if (spec.split("/").length !== 3) return `from "${spec}"`;
+      return `from "./${scaffoldName(spec.split("/")[2])}"`;
+    })
+    .replace(/from\s+["']\.\/([^"']+)["']/g, (_m, spec: string) => `from "./${lowerLast(spec)}"`);
 }
 
 function ensureCn(projectDir: string, overwrite: boolean): { target: string; status: string } {
@@ -147,7 +161,7 @@ function cmdAdd(name: string, projectDir: string, overwrite: boolean): void {
   const peers = peerDeps(dir).filter((d) => normalize(d) !== normalize(dir));
   if (peers.length > 0) {
     console.log(`\nThis component also uses: ${peers.join(", ")}`);
-    console.log(`Run: noarka add ${peers.join(" ")}`);
+    console.log(`Run: npx @noarka/cli add ${peers.join(" ")}`);
   }
 }
 

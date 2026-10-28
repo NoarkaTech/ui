@@ -1,6 +1,6 @@
 {
   "name": "@noarka/cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Scaffold Noarka UI primitives into your project.",
   "license": "MIT",
   "type": "module",
@@ -27,7 +27,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@noarka/ui": "workspace:^0.1.0"
+    "@noarka/ui": "^0.1.4"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
